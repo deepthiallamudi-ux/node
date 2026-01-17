@@ -1,0 +1,110 @@
+create table students(id int primary key,name text,email text,age int,
+course text, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW())
+insert into students values(101,'raghu','raghu@gmail.com',27, 
+'Radio & communicatiobns')
+
+select * from students
+
+
+output:
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| id  | name      | email              | age | course                  | created_at                    |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| 101 | raghu     | raghu@gmail.com    | 27  | Radio & communicatiobns | 2026-01-16 10:11:46.070442+00 |
+| 102 | satrugna  | satrugna@gmail.com | 22  | Hotel management        | 2026-01-16 10:11:52.777728+00 |
+| 103 | parnika   | pari@gmail.com     | 29  | Airport traffic control | 2026-01-16 10:11:57.862873+00 |
+| 104 | pallavi   | pallavi@gmail.com  | 26  | Baking cakes & deserts  | 2026-01-16 10:12:04.637759+00 |
+| 105 | raghu     | raghu@gmail.com    | 21  | Hotel Management        | 2026-01-16 10:12:24.387077+00 |
+| 106 | manikanta | mani@gmail.com     | 27  | Corporate Finance       | 2026-01-16 10:12:33.629123+00 |
+| 107 | deepu     | deepu@gmail.com    | 17  | AirHostess              | 2026-01-16 10:12:38.98833+00  |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+
+select * from students where age>20
+
+output:
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| id  | name      | email              | age | course                  | created_at                    |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| 101 | raghu     | raghu@gmail.com    | 27  | Radio & communicatiobns | 2026-01-16 10:11:46.070442+00 |
+| 102 | satrugna  | satrugna@gmail.com | 22  | Hotel management        | 2026-01-16 10:11:52.777728+00 |
+| 103 | parnika   | pari@gmail.com     | 29  | Airport traffic control | 2026-01-16 10:11:57.862873+00 |
+| 104 | pallavi   | pallavi@gmail.com  | 26  | Baking cakes & deserts  | 2026-01-16 10:12:04.637759+00 |
+| 105 | raghu     | raghu@gmail.com    | 21  | Hotel Management        | 2026-01-16 10:12:24.387077+00 |
+| 106 | manikanta | mani@gmail.com     | 27  | Corporate Finance       | 2026-01-16 10:12:33.629123+00 |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+
+select name,email from students
+
+name      | email       
++-----------+--------------------+
+| raghu     | raghu@gmail.com    |
+| satrugna  | satrugna@gmail.com |
+ | parnika   | pari@gmail.com     | 
+| pallavi   | pallavi@gmail.com  | 
+| raghu     | raghu@gmail.com    | 
+| manikanta | mani@gmail.com     |
++-----+-----------+----------------
+
+
+update students set course='Hotel Management' where course='Hotel management'
+output:
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| id  | name      | email              | age | course                  | created_at                    |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| 101 | raghu     | raghu@gmail.com    | 27  | Radio & communicatiobns | 2026-01-16 10:11:46.070442+00 |
+| 102 | satrugna  | satrugna@gmail.com | 22  | Hotel Management        | 2026-01-16 10:11:52.777728+00 |
+| 103 | parnika   | pari@gmail.com     | 29  | Airport traffic control | 2026-01-16 10:11:57.862873+00 |
+| 104 | pallavi   | pallavi@gmail.com  | 26  | Baking cakes & deserts  | 2026-01-16 10:12:04.637759+00 |
+| 105 | raghu     | raghu@gmail.com    | 21  | Hotel Management        | 2026-01-16 10:12:24.387077+00 |
+| 106 | manikanta | mani@gmail.com     | 27  | Corporate Finance       | 2026-01-16 10:12:33.629123+00 |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+
+
+
+select * from students where course='Hotel Management'
+
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| id  | name      | email              | age | course                  | created_at                    |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| 102 | satrugna  | satrugna@gmail.com | 22  | Hotel Management        | 2026-01-16 10:11:52.777728+00 |
+| 105 | raghu     | raghu@gmail.com    | 21  | Hotel Management        | 2026-01-16 10:12:24.387077+00 |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+
+update students set age=18 where age=26
+
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| id  | name      | email              | age | course                  | created_at                    |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| 101 | raghu     | raghu@gmail.com    | 27  | Radio & communicatiobns | 2026-01-16 10:11:46.070442+00 |
+| 102 | satrugna  | satrugna@gmail.com | 22  | Hotel Management        | 2026-01-16 10:11:52.777728+00 |
+| 103 | parnika   | pari@gmail.com     | 29  | Airport traffic control | 2026-01-16 10:11:57.862873+00 |
+| 104 | pallavi   | pallavi@gmail.com  | 18  | Baking cakes & deserts  | 2026-01-16 10:12:04.637759+00 |
+| 105 | raghu     | raghu@gmail.com    | 21  | Hotel Management        | 2026-01-16 10:12:24.387077+00 |
+| 106 | manikanta | mani@gmail.com     | 27  | Corporate Finance       | 2026-01-16 10:12:33.629123+00 |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+
+delete from students where id=104
+
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| id  | name      | email              | age | course                  | created_at                    |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| 101 | raghu     | raghu@gmail.com    | 27  | Radio & communicatiobns | 2026-01-16 10:11:46.070442+00 |
+| 102 | satrugna  | satrugna@gmail.com | 22  | Hotel Management        | 2026-01-16 10:11:52.777728+00 |
+| 103 | parnika   | pari@gmail.com     | 29  | Airport traffic control | 2026-01-16 10:11:57.862873+00 |
+| 105 | raghu     | raghu@gmail.com    | 21  | Hotel Management        | 2026-01-16 10:12:24.387077+00 |
+| 106 | manikanta | mani@gmail.com     | 27  | Corporate Finance       | 2026-01-16 10:12:33.629123+00 |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+
+
+delete from students where age<20
+
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| id  | name      | email              | age | course                  | created_at                    |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| 101 | raghu     | raghu@gmail.com    | 27  | Radio & communicatiobns | 2026-01-16 10:11:46.070442+00 |
+| 102 | satrugna  | satrugna@gmail.com | 22  | Hotel Management        | 2026-01-16 10:11:52.777728+00 |
+| 103 | parnika   | pari@gmail.com     | 29  | Airport traffic control | 2026-01-16 10:11:57.862873+00 |
+| 105 | raghu     | raghu@gmail.com    | 21  | Hotel Management        | 2026-01-16 10:12:24.387077+00 |
+| 106 | manikanta | mani@gmail.com     | 27  | Corporate Finance       | 2026-01-16 10:12:33.629123+00 |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
