@@ -1,13 +1,17 @@
-import express from 'express';
+// Import the express-rate-limit package
 import rateLimit from 'express-rate-limit';
-const app = express();
 
-const limiter = rateLimit({
-    windowMs: 1 * 60 * 1000, // 1 minute
-    max: 5, // limit each IP to 5 requests per windowMs
-    message:{status: 429,
-    error:'Too many requests from this IP, please try again after 1 minute'
-}   
+// Route-level middleware: Limits the number of requests to prevent abuse
+// Applied only to GET /todos route
+
+const rateLimiter = rateLimit({
+  windowMs: 60 * 1000, // Time window: 1 minute (60 seconds * 1000 milliseconds)
+  max: 15, // Maximum 15 requests allowed per time window
+  message: {
+    error: 'Too many requests, please try again later' // Error message sent when limit exceeded
+  }
 });
- app.use(limiter);
+
+// Export the rate limiter to use in routes
+export default rateLimiter;
 
