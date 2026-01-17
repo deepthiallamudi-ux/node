@@ -1,31 +1,27 @@
-// Import required modules
+
 import express from 'express';
-import fs from 'fs'; // File system module to read/write files
+import fs from 'fs'; 
+import{readFileSync} from 'fs';
 import rateLimiter from '../middleware/rateLimit.js';
 import validateTodo from '../middleware/validateTodo.js';
 
-// Create a router instance to define routes
+
 const router = express.Router();
-// Path to our database file
+
 const dbPath = './db.json';
 
-// Helper function to read data from db.json
+
 const readDB = () => {
-  // Read the file synchronously and parse JSON data
-  const data = fs.readFileSync(dbPath, 'utf-8');
+ 
+  const data = readFileSync(dbPath, 'utf-8');
   return JSON.parse(data);
 };
-
-// Helper function to write data to db.json
 const writeDB = (data) => {
-  // Convert data to JSON string with 2-space indentation and write to file
   fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
 };
 
-// GET /todos - Get all todos
-// Uses rate limiter middleware (15 requests per minute)
 router.get('/', rateLimiter, (req, res) => {
-  // Read all todos from database
+    // Read all todos from database
   const db = readDB();
   // Send todos array as response
   res.json(db.todos);
@@ -33,27 +29,19 @@ router.get('/', rateLimiter, (req, res) => {
 
 // GET /todos/:todoId - Get a single todo by ID
 router.get('/:todoId', (req, res) => {
-  // Read all todos from database
   const db = readDB();
   // Find the todo with matching ID (convert string to number)
   const todo = db.todos.find(t => t.id === parseInt(req.params.todoId));
   
-  // If todo not found, send 404 error
   if (!todo) {
     return res.status(404).json({ error: 'Todo not found' });
   }
   
-  // Send the found todo
   res.json(todo);
 });
 
-// POST /todos/add - Create a new todo
-// Uses validation middleware to ensure only 'title' field is sent
 router.post('/add', validateTodo, (req, res) => {
-  // Read current todos from database
   const db = readDB();
-  
-  // Create new todo object
   const newTodo = {
     id: db.todos.length + 1, // Generate new ID (length + 1)
     title: req.body.title, // Get title from request body
@@ -106,7 +94,7 @@ router.delete('/delete/:todoId', (req, res) => {
     return res.status(404).json({ error: 'Todo not found' });
   }
   
-  // Remove the todo from array and get the deleted todo
+
   const deletedTodo = db.todos.splice(todoIndex, 1)[0];
   // Save updated data back to db.json
   writeDB(db);

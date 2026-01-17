@@ -1,24 +1,35 @@
-// Import the express library to create our server
+
 import express from 'express';
-// Import the todo router that handles all todo-related routes
 import todoRouter from './routes/todos.js';
-// Import the logging middleware to track all requests
 import loggerMiddleware from './middleware/logger.js';
 
-// Create an Express application instance
-const app = express();
-// Define the port number where our server will run
-const PORT = 3000;
 
-// Middleware to parse incoming JSON data in request body
+const app = express();
+const PORT = 3000;
 app.use(express.json());
-// Apply logging middleware to all routes (app-level middleware)
 app.use(loggerMiddleware);
 
-// Use the todo router for all routes starting with /todos
 app.use('/todos', todoRouter);
 
-// Start the server and listen on the specified port
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
+
+// POST http://localhost:3000/todos/add
+// Body: { "title": "Learn Express" }
+
+// # Get all todos (limited to 15 per minute)
+// GET http://localhost:3000/todos
+
+// # Get single todo
+// GET http://localhost:3000/todos/1
+
+// # Update a todo
+// PUT http://localhost:3000/todos/update/1
+// Body: { "title": "Updated title", "completed": true }
+
+// # Delete a todo
+// DELETE http://localhost:3000/todos/delete/1
