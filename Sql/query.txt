@@ -108,3 +108,5 @@ delete from students where age<20
 | 105 | raghu     | raghu@gmail.com    | 21  | Hotel Management        | 2026-01-16 10:12:24.387077+00 |
 | 106 | manikanta | mani@gmail.com     | 27  | Corporate Finance       | 2026-01-16 10:12:33.629123+00 |
 +-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+
+

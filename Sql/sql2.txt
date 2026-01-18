@@ -1,0 +1,88 @@
+delete from students where age<20
+
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| id  | name      | email              | age | course                  | created_at                    |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+| 101 | raghu     | raghu@gmail.com    | 27  | Radio & communicatiobns | 2026-01-16 10:11:46.070442+00 |
+| 102 | satrugna  | satrugna@gmail.com | 22  | Hotel Management        | 2026-01-16 10:11:52.777728+00 |
+| 103 | parnika   | pari@gmail.com     | 29  | Airport traffic control | 2026-01-16 10:11:57.862873+00 |
+| 105 | raghu     | raghu@gmail.com    | 21  | Hotel Management        | 2026-01-16 10:12:24.387077+00 |
+| 106 | manikanta | mani@gmail.com     | 27  | Corporate Finance       | 2026-01-16 10:12:33.629123+00 |
++-----+-----------+--------------------+-----+-------------------------+-------------------------------+
+
+
+SELECT COUNT(*) FROM students;
+| count |
+| ----- |
+| 5     |
+
+select avg(age) from students
+ output:| avg                 |
+| ------------------- |
+| 25.2000000000000000 |
+
+
+select min(age),max(age) from students
+
+| min | max |
+| --- | --- |
+| 21  | 29  |
+
+
+select course,count(*) from students group by course
+
+| course                  | count |
+| ----------------------- | ----- |
+| Corporate Finance       | 1     |
+| Hotel Management        | 2     |
+| Radio & communicatiobns | 1     |
+| Airport traffic control | 1     |
+
+
+select count(*) from students where age>20
+
+| count |
+| ----- |
+| 5     |
+
+
+select course,count(*) from students group by course having count(*)>1
+
+| course           | count |
+| ---------------- | ----- |
+| Hotel Management | 2     |
+
+select course,count(*) from students GROUP BY course order by count(*) DESC 
+
+| course                  | count |
+| ----------------------- | ----- |
+| Hotel Management        | 2     |
+| Corporate Finance       | 1     |
+| Radio & communicatiobns | 1     |
+| Airport traffic control | 1     |
+
+
+select *  from students order by created_at DESC limit 3
+
+| id  | name      | email           | age | course                  | created_at                    |
+| --- | --------- | --------------- | --- | ----------------------- | ----------------------------- |
+| 106 | manikanta | mani@gmail.com  | 27  | Corporate Finance       | 2026-01-16 10:12:33.629123+00 |
+| 105 | raghu     | raghu@gmail.com | 21  | Hotel Management        | 2026-01-16 10:12:24.387077+00 |
+| 103 | parnika   | pari@gmail.com  | 29  | Airport traffic control | 2026-01-16 10:11:57.862873+00 |
+
+select *  from students order by age DESC limit 5
+
+| id  | name      | email              | age | course                  | created_at                    |
+| --- | --------- | ------------------ | --- | ----------------------- | ----------------------------- |
+| 103 | parnika   | pari@gmail.com     | 29  | Airport traffic control | 2026-01-16 10:11:57.862873+00 |
+| 101 | raghu     | raghu@gmail.com    | 27  | Radio & communicatiobns | 2026-01-16 10:11:46.070442+00 |
+| 106 | manikanta | mani@gmail.com     | 27  | Corporate Finance       | 2026-01-16 10:12:33.629123+00 |
+| 102 | satrugna  | satrugna@gmail.com | 22  | Hotel Management        | 2026-01-16 10:11:52.777728+00 |
+| 105 | raghu     | raghu@gmail.com    | 21  | Hotel Management        | 2026-01-16 10:12:24.387077+00 |
+
+select *  from students  where course='Hotel Management'  order by age DESC
+
+| id  | name     | email              | age | course           | created_at                    |
+| --- | -------- | ------------------ | --- | ---------------- | ----------------------------- |
+| 102 | satrugna | satrugna@gmail.com | 22  | Hotel Management | 2026-01-16 10:11:52.777728+00 |
+| 105 | raghu    | raghu@gmail.com    | 21  | Hotel Management | 2026-01-16 10:12:24.387077+00 |
