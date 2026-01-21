@@ -1,26 +1,39 @@
 {
-    "todos": [
-        {
-            "id": 1,
-            "title": "Buy groceries",
-            "completed": false
-        },
-        {
-            "id": 2,
-            "title": "Complete project",
-            "completed": true
-        }
-    ],
-    "users": [
-        {
-            "id": 1,
-            "name": "John Doe",
-            "email": "john@example.com"
-        },
-        {
-            "id": 2,
-            "name": "Jane Smith",
-            "email": "jane@example.com"
-        }
-    ]
+  "todos": [
+    {
+      "id": 1,
+      "title": "Buy groceries",
+      "completed": false
+    },
+    {
+      "id": 2,
+      "title": "Complete project",
+      "completed": true
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "jane@example.com"
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "deepu",
+      "email": "sree@gmail.com"
+    },
+    {
+      "id": 5,
+      "name": "deepu",
+      "email": "sree@gmail.com"
+    }
+  ]
 }

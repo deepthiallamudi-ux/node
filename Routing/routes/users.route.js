@@ -14,12 +14,12 @@ const writeDB = (data) => {
     fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
 };
 
-UserRouter.get('/users', (req, res) => {
+UserRouter.get('/', (req, res) => {
     const db = readDB();
     res.json(db.users);
 });
 
-UserRouter.post('/users/add',(req,res)=>{
+UserRouter.post('/add',(req,res)=>{
     const db = readDB();
     const newUser = {
         id: db.users.length + 1,
@@ -35,7 +35,7 @@ UserRouter.post('/users/add',(req,res)=>{
     }
 });
 
-UserRouter.get('/users/:userId',(req,res)=>{
+UserRouter.get('/:userId',(req,res)=>{
     const db= readDB();
     const user=db.users.find(u=>u.id===parseInt(req.params.userId));
     if (!user) {
@@ -45,7 +45,7 @@ UserRouter.get('/users/:userId',(req,res)=>{
     res.json(user);
 });
 
-UserRouter.put('/users/update/:userId',(req,res)=>{
+UserRouter.put('/update/:userId',(req,res)=>{
     const db= readDB();
     const userIndex=db.users.findIndex(u=>u.id===parseInt(req.params.userId));
     if(userIndex===-1){
@@ -60,7 +60,7 @@ UserRouter.put('/users/update/:userId',(req,res)=>{
     writeDB(db);
     res.json(updatedUser);
 });
-UserRouter.delete('/users/delete/:userId',(req,res)=>{
+UserRouter.delete('/delete/:userId',(req,res)=>{
     const db= readDB();
     const userIndex=db.users.findIndex(u=>u.id===parseInt(req.params.userId));
     if(userIndex===-1){

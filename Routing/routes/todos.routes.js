@@ -12,11 +12,11 @@ const writeDB= (data) => {
     fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
 }
 
-TodosRouter.get('/todos', (req, res) => {
+TodosRouter.get('/', (req, res) => {
     const db = readDB();
     res.json(db.todos);
 });
-TodosRouter.post('/todos/add',(req,res)=>{
+TodosRouter.post('/add',(req,res)=>{
     const db= readDB();
     const newTodo={
         id: db.todos.length + 1,
@@ -32,7 +32,7 @@ TodosRouter.post('/todos/add',(req,res)=>{
     }
 });
 
-TodosRouter.get('/todos/:todoId',(req,res)=>{
+TodosRouter.get('/:todoId',(req,res)=>{
     const db= readDB();
     const todo=db.todos.find(t=>t.id===parseInt(req.params.todoId));
     if (!todo) {
@@ -41,7 +41,7 @@ TodosRouter.get('/todos/:todoId',(req,res)=>{
     res.json(todo);
 });
 
-TodosRouter.put('/todos/update/:todoId',(req,res)=>{
+TodosRouter.put('/update/:todoId',(req,res)=>{
     const db= readDB();
     const todoIndex=db.todos.findIndex(t=>t.id===parseInt(req.params.todoId));
     if(todoIndex){
@@ -58,7 +58,7 @@ TodosRouter.put('/todos/update/:todoId',(req,res)=>{
     }
 });
 
-TodosRouter.delete('/todos/delete/:todoId',(req,res)=>{
+TodosRouter.delete('/delete/:todoId',(req,res)=>{
     const db= readDB();
     const todoIndex=db.todos.findIndex(t=>t.id===parseInt(req.params.todoId));
     if(todoIndex===-1){
