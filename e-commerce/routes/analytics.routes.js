@@ -4,13 +4,12 @@ import fs from 'fs';
 const analyticsRouter = express.Router();
 const dbPath = './db.json';
 
-// Read database
+
 const readDB = () => {
     const data = fs.readFileSync(dbPath, 'utf-8');
     return JSON.parse(data);
 };
 
-// Get all orders with count using forEach
 analyticsRouter.get('/allorders', (req, res) => {
     const db = readDB();
     let count = 0;
@@ -24,7 +23,6 @@ analyticsRouter.get('/allorders', (req, res) => {
     res.json({ totalCount: count, orders: allOrders });
 });
 
-// Get cancelled orders with count using filter
 analyticsRouter.get('/cancelled-orders', (req, res) => {
     const db = readDB();
     
@@ -33,7 +31,6 @@ analyticsRouter.get('/cancelled-orders', (req, res) => {
     res.json({ totalCount: cancelledOrders.length, orders: cancelledOrders });
 });
 
-// Get shipped orders with count using filter
 analyticsRouter.get('/shipped', (req, res) => {
     const db = readDB();
     
@@ -42,7 +39,6 @@ analyticsRouter.get('/shipped', (req, res) => {
     res.json({ totalCount: shippedOrders.length, orders: shippedOrders });
 });
 
-// Get total revenue by product using filter and reduce
 analyticsRouter.get('/total-revenue/:productId', (req, res) => {
     const db = readDB();
     const productId = parseInt(req.params.productId);
@@ -68,7 +64,6 @@ analyticsRouter.get('/total-revenue/:productId', (req, res) => {
     });
 });
 
-// Get overall revenue using filter and reduce
 analyticsRouter.get('/alltotalrevenue', (req, res) => {
     const db = readDB();
     

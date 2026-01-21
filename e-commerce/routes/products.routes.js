@@ -4,24 +4,21 @@ import fs from 'fs';
 const productsRouter = express.Router();
 const dbPath = './db.json';
 
-// Read database
 const readDB = () => {
     const data = fs.readFileSync(dbPath, 'utf-8');
     return JSON.parse(data);
 };
 
-// Write database
 const writeDB = (data) => {
     fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
 };
 
-// Get all products
 productsRouter.get('/', (req, res) => {
     const db = readDB();
     res.json(db.products);
 });
 
-// Get product by ID
+
 productsRouter.get('/:productId', (req, res) => {
     const db = readDB();
     const product = db.products.find(p => p.id === parseInt(req.params.productId));
@@ -33,7 +30,7 @@ productsRouter.get('/:productId', (req, res) => {
     res.json(product);
 });
 
-// Create product
+
 productsRouter.post('/', (req, res) => {
     const db = readDB();
     const { name, price, stock } = req.body;
@@ -56,7 +53,7 @@ productsRouter.post('/', (req, res) => {
     res.status(201).json(newProduct);
 });
 
-// Update product
+
 productsRouter.put('/:productId', (req, res) => {
     const db = readDB();
     const product = db.products.find(p => p.id === parseInt(req.params.productId));
@@ -75,7 +72,6 @@ productsRouter.put('/:productId', (req, res) => {
     res.json(product);
 });
 
-// Delete product
 productsRouter.delete('/:productId', (req, res) => {
     const db = readDB();
     const index = db.products.findIndex(p => p.id === parseInt(req.params.productId));

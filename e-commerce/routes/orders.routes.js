@@ -4,24 +4,20 @@ import fs from 'fs';
 const ordersRouter = express.Router();
 const dbPath = './db.json';
 
-// Read database
 const readDB = () => {
     const data = fs.readFileSync(dbPath, 'utf-8');
     return JSON.parse(data);
 };
 
-// Write database
 const writeDB = (data) => {
     fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
 };
 
-// Get today's date
 const getTodayDate = () => {
     const date = new Date();
     return date.toISOString().split('T')[0];
 };
 
-// Create Order
 ordersRouter.post('/', (req, res) => {
     const db = readDB();
     const { productId, quantity } = req.body;
@@ -63,13 +59,12 @@ ordersRouter.post('/', (req, res) => {
     res.status(201).json(newOrder);
 });
 
-// Get All Orders
+
 ordersRouter.get('/', (req, res) => {
     const db = readDB();
     res.json(db.orders);
 });
 
-// Cancel Order (Soft Delete)
 ordersRouter.delete('/:orderId', (req, res) => {
     const db = readDB();
     const order = db.orders.find(o => o.id === parseInt(req.params.orderId));
@@ -97,7 +92,6 @@ ordersRouter.delete('/:orderId', (req, res) => {
     res.json({ message: 'Order cancelled successfully', order });
 });
 
-// Change Order Status
 ordersRouter.patch('/change-status/:orderId', (req, res) => {
     const db = readDB();
     const order = db.orders.find(o => o.id === parseInt(req.params.orderId));
