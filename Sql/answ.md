@@ -38,7 +38,19 @@ Establishes a link between data in two tables by referencing the primary key of 
 CHECK	
 Enforces a condition that all values in a column must satisfy.	Ensures data meets specific business rules (e.g., ensuring a price is never negative or an age is above 18).
 
-The difference between a database schema and a database table
+5.The difference between a database schema and a database table
+![ DATABASE](image.png)
+A database is the container that stores data, while a schema is the framework that defines how the data is structured within that database.
+A schema is the blueprint or structural design of a database. It defines how data is organized, including tables, fields, relationships and constraints. Essentially, a schema provides a logical framework for storing and managing data within a database.
+![SCHEMA](image-1.png)
+
+
 Why a table should represent only one entity
+In relational database design, a table should represent only one entity to uphold the principles of normalization, which minimizes data redundancy and maximizes data integrity. This approach ensures that data is organized logically, efficiently, and reduces the risk of errors during data manipulation. 
+
 Why redundant or derived data should be avoided in table design
+
+Redundant or derived data should be avoided in table design primarily to maintain data integrity, optimize storage efficiency, and simplify maintenance and updates. 
+
 The importance of choosing correct data types while designing tables
+Choosing correct data types when designing database tables is fundamentally important as it impacts data integrity, storage efficiency, query performance, and application correctness [1]. Inappropriate data type choices can lead to a host of issues, from wasted disk space to data corruption and slow response times
