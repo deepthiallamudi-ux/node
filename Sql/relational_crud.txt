@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 -- Create users table
 CREATE TABLE users (
@@ -169,3 +170,176 @@ SELECT * FROM orders WHERE user_id = 5;
 -- 7. Scalability: As orders grow, keeping them in a separate table allows for better 
 --    partitioning, archiving, and performance optimization strategies.
 
+=======
+
+-- Create users table
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create orders table with foreign key relationship
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    amount INTEGER NOT NULL,
+    status TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Insert 5 users
+INSERT INTO users (name, email, created_at) VALUES
+('Alice Johnson', 'alice@example.com', '2026-01-15 10:30:00'),
+('Bob Smith', 'bob@example.com', '2026-01-16 11:45:00'),
+('Charlie Davis', 'charlie@example.com', '2026-01-17 09:20:00'),
+('Diana Wilson', 'diana@example.com', '2026-01-18 14:10:00'),
+('Eve Martinez', 'eve@example.com', '2026-01-19 16:55:00');
+
+
+INSERT INTO orders (user_id, amount, status, created_at) VALUES
+(1, 1500, 'completed', '2026-01-20 10:00:00'),
+(1, 2300, 'completed', '2026-01-21 11:30:00'),
+(1, 750, 'pending', '2026-01-22 14:15:00'),
+(2, 4200, 'completed', '2026-01-20 12:45:00'),
+(2, 1800, 'shipped', '2026-01-23 09:30:00'),
+(3, 3500, 'completed', '2026-01-21 15:20:00'),
+(3, 950, 'cancelled', '2026-01-22 10:10:00'),
+(4, 2700, 'pending', '2026-01-23 13:00:00'),
+(5, 1200, 'completed', '2026-01-22 16:40:00'),
+(5, 3300, 'shipped', '2026-01-24 08:15:00');
+
+
+
+
+SELECT * FROM users;
+
+-- Query 2: Fetch all orders
+SELECT * FROM orders;
+
+-- Query 3: Fetch all orders for a specific user (e.g., Alice with id=1)
+SELECT 
+    o.id order_id,
+    o.amount,
+    o.status,
+    o.created_at order_date
+FROM orders o
+JOIN users u ON o.user_id = u.id
+WHERE u.name = 'Alice Johnson';
+
+-- Query 4: Fetch users who have more than one order
+SELECT 
+    u.id,
+    u.name,
+    u.email,
+    COUNT(o.id) order_count
+FROM users u
+JOIN orders o ON u.id = o.user_id
+GROUP BY u.id, u.name, u.email
+HAVING COUNT(o.id) > 1
+ORDER BY order_count DESC;
+
+-- Query 5: Fetch total order amount per user
+SELECT 
+    u.id,
+    u.name,
+    u.email,
+    COUNT(o.id) total_orders,
+    SUM(o.amount) total_amount,
+    AVG(o.amount) average_amount
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+GROUP BY u.id, u.name, u.email
+ORDER BY total_amount DESC;
+
+-- =============================================
+-- STEP 4: UPDATE DATA
+-- =============================================
+
+-- Update 1: Update the email of one user
+UPDATE users
+SET email = 'alice.johnson@newdomain.com'
+WHERE id = 1;
+
+-- Verify the update
+SELECT * FROM users WHERE id = 1;
+
+-- Update 2: Update the status of all orders for a specific user
+UPDATE orders
+SET status = 'completed'
+WHERE user_id = 2;
+
+-- Verify the update
+SELECT * FROM orders WHERE user_id = 2;
+
+-- Update 3: Update order amount for a single order
+UPDATE orders
+SET amount = 2500
+WHERE id = 3;
+
+-- Verify the update
+SELECT * FROM orders WHERE id = 3;
+
+-- =============================================
+-- STEP 5: DELETE DATA
+-- =============================================
+
+-- Delete 1: Delete one order using order id
+DELETE FROM orders
+WHERE id = 7;
+
+-- Verify the deletion
+SELECT * FROM orders;
+
+-- Delete 2: Delete all orders of a specific user
+DELETE FROM orders
+WHERE user_id = 4;
+
+-- Verify the deletion
+SELECT * FROM orders WHERE user_id = 4;
+
+-- Delete 3: Attempt deleting a user with existing orders and observe the behavior
+-- Note: Since we have ON DELETE CASCADE, this will delete the user AND all their orders
+DELETE FROM users
+WHERE id = 5;
+
+-- Verify - user is deleted
+SELECT * FROM users WHERE id = 5;
+
+-- Verify - orders for user 5 are also deleted due to CASCADE
+SELECT * FROM orders WHERE user_id = 5;
+
+-- =============================================
+-- STEP 6: CONCEPTUAL QUESTION
+-- =============================================
+
+-- Why should orders not be stored inside the users table?
+--
+-- Answer:
+-- 1. Data Redundancy: If we store orders inside the users table, we would need to 
+--    duplicate user information (name, email, created_at) for every order, leading 
+--    to massive data redundancy and wasted storage.
+--
+-- 2. One-to-Many Relationship: A single user can have multiple orders. Storing orders 
+--    in the users table would require either creating multiple rows for the same user 
+--    (violating normalization) or storing orders as an array/JSON (making queries complex).
+--
+-- 3. Normalization: Following database normalization principles (1NF, 2NF, 3NF), we 
+--    should separate entities that have different lifecycles and relationships. Users 
+--    and orders are distinct entities.
+--
+-- 4. Update Anomalies: If user data changes (e.g., email), we'd have to update it in 
+--    multiple places, risking inconsistency.
+--
+-- 5. Query Performance: Joining separate tables is more efficient than querying nested 
+--    data structures, and allows for better indexing strategies.
+--
+-- 6. Data Integrity: Foreign keys enforce referential integrity, ensuring orders always 
+--    reference valid users.
+--
+-- 7. Scalability: As orders grow, keeping them in a separate table allows for better 
+--    partitioning, archiving, and performance optimization strategies.
+
+>>>>>>> bc127de6fe247e65907e6aaa180ac60f4de95615
