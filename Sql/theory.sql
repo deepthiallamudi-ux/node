@@ -14,9 +14,9 @@ SELECT * FROM Employees WHERE Department  not IN ('HR', 'Finance', 'IT') ;
 
 select location, sum(salary) from salary_breakdown group by location
 
-difference between where and having clause in sql is that where is used to filter rows before grouping whereas having is used to filter groups after grouping.
+-- difference between where and having clause in sql is that where is used to filter rows before grouping whereas having is used to filter groups after grouping.
 
-primary key is a column or a set of columns that uniquely identifies each row in a table. It must contain unique values and cannot contain NULL values. 
+-- primary key is a column or a set of columns that uniquely identifies each row in a table. It must contain unique values and cannot contain NULL values. 
 
 eg:
 create table Employees (

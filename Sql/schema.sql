@@ -36,3 +36,4 @@ begin
 if New.name is null or length(new.name)=0 then
 raise exception 'name cant be empty!';
 end if;  
+
